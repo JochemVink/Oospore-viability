@@ -17,6 +17,9 @@ files <- list.files(path=folder, pattern="*BF*", full.names=TRUE, recursive=FALS
 
 lapply(files, function(x) {
 a = readTIFF(x)
+if (!(is.na(dim(a)[3]))){
+  a <- rowSums(a, dims = 2)
+}
 writeTIFF(a,bits.per.sample=16,paste(substr(x,1,nchar(x)-3),'converted.tif',sep=""))
 })
 
